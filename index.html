@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Salon de Création - Accueil</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Bienvenue dans mon univers</h1>
+        <p>Découvrez mes créations et réservez votre moment.</p>
+    </header>
+
+    <main>
+        <!-- Section Carrousel (on le rendra fonctionnel et beau juste après) -->
+        <section class="carousel-container">
+            <div class="carousel">
+                <!-- Tu mettras le nom de tes images ici plus tard -->
+                <img src="images/creation1.jpg" alt="Création 1" class="slide active">
+                <img src="images/creation2.jpg" alt="Création 2" class="slide">
+                <img src="images/creation3.jpg" alt="Création 3" class="slide">
+                <img src="images/creation4.jpg" alt="Création 3" class="slide">
+                <img src="images/creation5.jpg" alt="Création 3" class="slide">
+            </div>
+        </section>
+
+        <!-- Le bouton d'action qui redirige vers la page de réservation -->
+        <section class="action-zone">
+            <a href="reservation.html" class="btn-resa">Prendre rendez-vous</a>
+        </section>
+    </main>
+
+    <!-- ... le reste de ton code HTML juste au-dessus ... -->
+    <footer>
+        <p>© Mathy Beauty - 2026 - Tous droits réservés</p>
+    </footer>
+
+    <script>
+    const slides = document.querySelectorAll('.carousel .slide');
+    
+    // 1. On choisit une première image au hasard pour démarrer
+    let currentSlide = Math.floor(Math.random() * slides.length);
+    slides[currentSlide].classList.add('active');
+
+    function nextSlide() {
+        // On cache l'image actuelle
+        slides[currentSlide].classList.remove('active');
+        
+        // 2. On choisit la PROCHAINE image au hasard
+        // (avec une petite boucle pour éviter de retomber deux fois de suite sur la même)
+        let nextIndex;
+        do {
+            nextIndex = Math.floor(Math.random() * slides.length);
+        } while (nextIndex === currentSlide && slides.length > 1);
+        
+        currentSlide = nextIndex;
+        
+        // On affiche la nouvelle image
+        slides[currentSlide].classList.add('active');
+    }
+
+    // Changement toutes les 3 secondes
+    setInterval(nextSlide, 3000);
+</script>
+</body>
+</html>

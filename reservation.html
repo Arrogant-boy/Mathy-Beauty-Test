@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mathy Beauty - Réservation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Choisissez vos prestations</h1>
+        <p>Sélectionnez votre base puis ajoutez vos options.</p>
+    </header>
+
+    <main class="reservation-container">
+        
+        <!-- Prestation 1 : Semi-Permanent Mains -->
+        <div class="presta-card">
+            <img src="images/semi-permanent.jpg" alt="Semi-Permanent Mains" class="presta-img">
+            <div class="presta-card-content">
+                <div class="presta-info">
+                    <label class="main-select">
+                        <input type="radio" name="presta-base">
+                        <h2>Semi-Permanent Mains</h2>
+                    </label>
+                </div>
+                
+                <details class="options-dropdown">
+                    <summary>Ajouter des suppléments...</summary>
+                    <div class="options-zone">
+                        <label class="option-item">
+                            <input type="checkbox"> 
+                            <span>Dépose</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox"> 
+                            <span>Nail Art Simple</span>
+                        </label>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- Prestation 2 : Rallongement Gel -->
+        <div class="presta-card">
+            <img src="images/rallongement.jpg" alt="Rallongement Gel" class="presta-img">
+            <div class="presta-card-content">
+                <div class="presta-info">
+                    <label class="main-select">
+                        <input type="radio" name="presta-base">
+                        <h2>Rallongement en Gel</h2>
+                    </label>
+                </div>
+                
+                <details class="options-dropdown">
+                    <summary>Ajouter des suppléments...</summary>
+                    <div class="options-zone">
+                        <label class="option-item">
+                            <input type="checkbox"> 
+                            <span>Nail Art Complet</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox"> 
+                            <span>Effet Chrome / Miroir</span>
+                        </label>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- Prestation 3 : Dépose & Soin -->
+        <div class="presta-card">
+            <img src="images/depose-soin.jpg" alt="Dépose & Soin" class="presta-img">
+            <div class="presta-card-content">
+                <div class="presta-info">
+                    <label class="main-select">
+                        <input type="radio" name="presta-base">
+                        <h2>Dépose & Soin Profond</h2>
+                    </label>
+                </div>
+                
+                <details class="options-dropdown">
+                    <summary>Ajouter des suppléments...</summary>
+                    <div class="options-zone">
+                        <label class="option-item">
+                            <input type="checkbox"> 
+                            <span>Soin IBX Réparateur</span>
+                        </label>
+                        <label class="option-item">
+                            <input type="checkbox"> 
+                            <span>Manucure Russe seule</span>
+                        </label>
+                    </div>
+                </details>
+            </div>
+        </div>
+
+        <!-- Prestation 4 : Demande Personnalisée -->
+        <div class="presta-card">
+            <img src="images/sur-mesure.jpg" alt="Pose personnalisée" class="presta-img">
+            <div class="presta-card-content">
+                <div class="presta-info">
+                    <label class="main-select">
+                        <input type="radio" name="presta-base">
+                        <h2>Pose Sur-Mesure / Nail Art</h2>
+                    </label>
+                </div>
+                
+                <div class="custom-request-zone">
+                    <p style="margin: 0 0 8px 0; font-size: 0.9rem; color: #8c736c; font-weight: 500;">
+                        Décris-moi ton projet (ou pose actuelle) :
+                    </p>
+                    <textarea 
+                        placeholder="Ex: Pose complète avec Nail Art inspiré d'une photo, dépose d'un autre salon, 2 ongles cassés..." 
+                        rows="3" 
+                        class="custom-textarea"></textarea>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Seul prix visible sur toute la page : l'acompte de réservation -->
+    <div class="action-zone fixed-bottom">
+        <a href="calendrier.html" class="btn-resa">Réserver (Acompte 25,00 €)</a>
+    </div>
+
+    <footer>
+        <p>© Mathy Beauty - 2026 - Tous droits réservés</p>
+    </footer>
+
+</body>
+</html>

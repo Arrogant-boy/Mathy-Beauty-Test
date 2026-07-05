@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mathy Beauty - Date & Heure</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Choisis ton créneau</h1>
+        <p>Consulte mes disponibilités ci-dessous pour bloquer ton moment.</p>
+    </header>
+
+    <main class="calendar-page-container">
+        
+        <!-- MESSAGE INFORMATIF IMPORTANT -->
+        <div class="info-message-box">
+            <strong>⚠️ Étape importante :</strong><br>
+            1. Choisis ton jour et ton heure directement dans le calendrier ci-dessous.<br>
+            2. Remplis tes informations et valide le rendez-vous.<br>
+            3. Une fois ton créneau réservé, coche la case en bas pour procéder au paiement de l'acompte.
+        </div>
+        
+        <!-- Conteneur pour le Google Agenda Cliquable -->
+        <div class="presta-card calendar-card">
+            <div class="calendar-wrapper">
+                
+                <!-- Google Calendar Appointment Scheduling begin -->
+                <iframe src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ3XsttlC66K0HZXlMZ15-DU3x8SiqCUaqCaj7dxOv83ctQi7xQaNkuZYamc9t6NBVKzwL9AaoS9?gv=true" style="border: 0" width="100%" height="600" frameborder="0"></iframe>
+                <!-- end Google Calendar Appointment Scheduling -->
+                
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Zone du bouton avec la case à cocher de sécurité -->
+    <div class="action-zone fixed-bottom" style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
+        
+        <!-- Case à cocher pour débloquer le bouton -->
+        <label class="option-item" style="font-weight: 600; background-color: #ffffff; padding: 8px 16px; border-radius: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+            <input type="checkbox" id="confirm-checkbox"> 
+            <span>J'ai bien validé mon rendez-vous sur le calendrier</span>
+        </label>
+
+        <!-- Le bouton (bloqué par défaut via la classe 'disabled-btn') -->
+        <a href="https://paypal.me/ProxyMarket/25" id="paypal-btn" class="btn-resa disabled-btn" target="_blank">Payer l'acompte (25,00 €)</a>
+    </div>
+
+    <footer>
+        <p>© Mathy Beauty - 2026 - Tous droits réservés</p>
+    </footer>
+
+    <!-- 🧙‍♂️ LE SCRIPT MAGIQUE : Il écoute la case à cocher -->
+    <script>
+        const checkbox = document.getElementById('confirm-checkbox');
+        const paypalBtn = document.getElementById('paypal-btn');
+
+        checkbox.addEventListener('change', function() {
+            if (this.checked) {
+                // Si coché : on active le bouton
+                paypalBtn.classList.remove('disabled-btn');
+                paypalBtn.style.pointerEvents = 'auto';
+            } else {
+                // Si décoché : on re-bloque
+                paypalBtn.classList.add('disabled-btn');
+                paypalBtn.style.pointerEvents = 'none';
+            }
+        });
+
+        // Sécurité au chargement de la page pour bloquer le clic
+        paypalBtn.style.pointerEvents = 'none';
+    </script>
+
+</body>
+</html>
