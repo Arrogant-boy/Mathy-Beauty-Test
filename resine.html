@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resine By Mathy | Boutique Artisanale</title>
+    <style>
+        /* --- DESIGN GLOBAL & PALETTE DE COULEURS --- */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Playfair Display', 'Segoe UI', serif;
+            background-color: #fbf9f6;
+            color: #2d2d2d;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* --- EN-TÊTE FIXE & CHIC --- */
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-bottom: 1px solid #f0e6df;
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.02);
+        }
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            color: #b87355;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        .cart-btn {
+            background-color: #2d2d2d;
+            color: #ffffff;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 14px;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+        }
+        .cart-btn:hover {
+            background-color: #b87355;
+            transform: translateY(-1px);
+        }
+        .cart-count {
+            background-color: #ffffff;
+            color: #2d2d2d;
+            border-radius: 50%;
+            padding: 1px 7px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* --- CONTENEUR PRINCIPAL & BANNIÈRE --- */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .banner {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 20px 0;
+        }
+        .banner h1 {
+            font-size: 38px;
+            color: #2d2d2d;
+            margin: 0 0 15px 0;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+        .banner p {
+            font-size: 16px;
+            color: #7a7a7a;
+            max-width: 600px;
+            margin: 0 auto;
+            font-style: italic;
+        }
+
+        /* --- GRILLE DE PRODUITS FLEXIBLE --- */
+        .products-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            justify-content: center;
+            margin-bottom: 60px;
+        }
+
+        .product-card {
+            background: #ffffff;
+            border-radius: 0px; 
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.03);
+            border: 1px solid #f5ebe6;
+            display: flex;
+            flex-direction: column;
+            width: calc(25% - 19px);
+            min-width: 250px;
+            transition: all 0.3s ease;
+        }
+        
+        @media (max-width: 1024px) {
+            .product-card { width: calc(50% - 13px); }
+        }
+        @media (max-width: 600px) {
+            .product-card { width: 100%; }
+        }
+
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(184, 115, 85, 0.08);
+        }
+        
+        /* CONTAINER DE L'IMAGE */
+        .product-img-wrapper {
+            width: 100%;
+            height: 240px;
+            background-color: #eaddd5;
+            background-image: linear-gradient(135deg, #f5ebe6 25%, transparent 25%), linear-gradient(225deg, #f5ebe6 25%, transparent 25%), linear-gradient(45deg, #f5ebe6 25%, transparent 25%), linear-gradient(315deg, #f5ebe6 25%, #eaddd5 25%);
+            background-position: 10px 0, 10px 0, 0 0, 0 0;
+            background-size: 20px 20px;
+            background-repeat: repeat;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid #f5ebe6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .product-img-wrapper::before {
+            content: "Resine By Mathy";
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #b87355;
+            opacity: 0.5;
+        }
+
+        .product-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .product-img:not([src]), .product-img[src="images/default.jpg"] {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        /* STYLE SPÉCIAL CARTE DEVIS (FOND LÉGÈREMENT COLORÉ) */
+        .product-card.custom-card {
+            background-color: #fcfbf9;
+            border: 1px dashed #b87355;
+        }
+        .product-card.custom-card .product-img-wrapper {
+            background: #f5ebe6;
+        }
+        .product-card.custom-card .product-img-wrapper::before {
+            content: "✨ PROJET UNIQUE ✨";
+            opacity: 0.8;
+        }
+
+        .product-info {
+            padding: 20px 15px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            text-align: center;
+        }
+        .product-tag {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #b87355;
+            margin-bottom: 6px;
+        }
+        .product-title {
+            font-size: 15px;
+            margin: 0 0 8px 0;
+            color: #2d2d2d;
+            font-weight: 400;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .product-price {
+            font-size: 14px;
+            font-weight: bold;
+            color: #4a4a4a;
+            margin-bottom: 15px;
+        }
+
+        /* --- ZONE DES PASTILLES DE COULEURS --- */
+        .color-section-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #7a7a7a;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .color-swatches {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            justify-content: center;
+            margin-bottom: 20px;
+            padding: 0 5px;
+        }
+        .swatch {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 1px solid rgba(0, 0, 0, 0.15);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+        .swatch:hover {
+            transform: scale(1.2);
+        }
+        .swatch.selected {
+            border: 2px solid #2d2d2d;
+            transform: scale(1.1);
+            box-shadow: 0 0 5px rgba(0,0,0,0.2);
+        }
+        
+        .swatch::after {
+            content: attr(data-name);
+            position: absolute;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) scale(0);
+            background: #2d2d2d;
+            color: #fff;
+            padding: 4px 8px;
+            font-size: 9px;
+            border-radius: 3px;
+            white-space: nowrap;
+            transition: all 0.15s ease;
+            pointer-events: none;
+            opacity: 0;
+            z-index: 10;
+        }
+        .swatch:hover::after {
+            transform: translateX(-50%) scale(1);
+            opacity: 1;
+        }
+
+        .add-to-cart {
+            background-color: transparent;
+            color: #2d2d2d;
+            border: 1px solid #2d2d2d;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 11px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-top: auto;
+            transition: all 0.3s ease;
+        }
+        .add-to-cart:hover {
+            background-color: #2d2d2d;
+            color: #ffffff;
+        }
+
+        /* Bouton spécifique pour le devis */
+        .btn-devis {
+            border-color: #b87355;
+            color: #b87355;
+        }
+        .btn-devis:hover {
+            background-color: #b87355;
+            color: #ffffff;
+        }
+        
+        /* --- MODAL DU PANIER LATÉRAL --- */
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            justify-content: flex-end;
+        }
+        .cart-content {
+            background: #ffffff;
+            padding: 40px 30px;
+            width: 100%;
+            max-width: 450px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            box-shadow: -5px 0 30px rgba(0,0,0,0.05);
+            animation: slideIn 0.3s ease;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+        .close-modal {
+            align-self: flex-end;
+            font-size: 28px;
+            cursor: pointer;
+            color: #2d2d2d;
+            line-height: 1;
+        }
+        .cart-content h2 {
+            font-weight: 400;
+            margin: 0 0 30px 0;
+            letter-spacing: 1px;
+            border-bottom: 1px solid #f0e6df;
+            padding-bottom: 15px;
+        }
+        .cart-items {
+            flex-grow: 1;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #fbf9f6;
+        }
+        .cart-item-details strong {
+            display: block;
+            font-weight: 400;
+            font-size: 15px;
+        }
+        .cart-item-details .item-color {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: #b87355;
+            font-style: italic;
+            margin-top: 2px;
+        }
+        .cart-item-color-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+        .cart-item-details span {
+            color: #7a7a7a;
+            font-size: 13px;
+        }
+        .cart-item-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .cart-item-actions button {
+            background: #fbf9f6;
+            border: 1px solid #f0e6df;
+            width: 26px;
+            height: 26px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+        .cart-item-actions button:hover {
+            background: #2d2d2d;
+            color: white;
+        }
+        .cart-total {
+            font-size: 18px;
+            letter-spacing: 1px;
+            text-align: right;
+            margin: 20px 0;
+            border-top: 1px solid #f0e6df;
+            padding-top: 20px;
+        }
+        .checkout-btn {
+            background-color: #b87355;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 16px;
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .checkout-btn:hover {
+            background-color: #2d2d2d;
+        }
+        .empty-cart-msg {
+            text-align: center;
+            color: #a3a3a3;
+            margin-top: 40px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- EN-TÊTE -->
+    <header>
+        <div class="header-container">
+            <div class="logo">ResineByMathy</div>
+            <button class="cart-btn" onclick="toggleCart()">
+                Panier <span class="cart-count" id="cart-count">0</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- BOUTIQUE -->
+    <div class="container">
+        <div class="banner">
+            <h1>Créations en Résine</h1>
+            <p>Pièces uniques façonnées à la main. Les prix affichés s'entendent hors frais d'envoi.</p>
+        </div>
+
+        <div class="products-grid" id="products-grid">
+            <!-- Injecté par JavaScript -->
+        </div>
+    </div>
+
+    <!-- PANIER -->
+    <div class="cart-modal" id="cart-modal" onclick="closeCartOnOutsideClick(event)">
+        <div class="cart-content" id="modal-content">
+            <span class="close-modal" onclick="toggleCart()">&times;</span>
+            <h2>Votre Sélection</h2>
+            <div id="cart-items" class="cart-items"></div>
+            <div class="cart-total" id="cart-total">Total : 0.00 €</div>
+            <button class="checkout-btn" onclick="procederPaiement()">Passer à la commande</button>
+        </div>
+    </div>
+
+    <script>
+        const items = [
+            { id: 1, name: "Marque-page", price: 2, image: "default.jpg" },
+            { id: 2, name: "Lettre", price: 3, image: "lettres-roses.jpg" },
+            { id: 3, name: "Stylo", price: 2, image: "default.jpg" },
+            { id: 4, name: "Cendrier rond", price: 5, image: "default.jpg" },
+            { id: 5, name: "Cendrier carré", price: 5, image: "default.jpg" },
+            { id: 6, name: "Petit pot carré", price: 4, image: "default.jpg" },
+            { id: 7, name: "Petit pot rond", price: 4, image: "default.jpg" },
+            { id: 8, name: "Petit pot hexagonal", price: 4, image: "default.jpg" },
+            { id: 9, name: "Petit pot rond avec couvercle", price: 5, image: "default.jpg" },
+            { id: 10, name: "Grand pot rond avec couvercle", price: 8, image: "default.jpg" },
+            { id: 11, name: "Petit dessous de verre", price: 4, image: "default.jpg" },
+            { id: 12, name: "Grand dessous de verre", price: 5, image: "default.jpg" },
+            { id: 13, name: "Petit plateau", price: 7, image: "default.jpg" },
+            { id: 14, name: "Très grand plateau avec poignée", price: 20, image: "default.jpg" },
+            { id: 15, name: "Déco « LOVE »", price: 8, image: "default.jpg" },
+            { id: 16, name: "Déco « FAMILY »", price: 10, image: "default.jpg" },
+            { id: 17, name: "Déco « HOME »", price: 8, image: "default.jpg" }
+        ];
+
+        const pigments = [
+            { id: 1, name: "Pigment 1 (Rose Bonbon)", color: "radial-gradient(circle, #e27396, #c75275)" },
+            { id: 2, name: "Pigment 2 (Fuchsia Nacré)", color: "radial-gradient(circle, #ea4c89, #9e1b50)" },
+            { id: 3, name: "Pigment 3 (Magenta)", color: "radial-gradient(circle, #d11a5b, #800732)" },
+            { id: 4, name: "Pigment 4 (Violet Profond)", color: "radial-gradient(circle, #7209b7, #4c037d)" },
+            { id: 5, name: "Pigment 5 (Vert Menthe)", color: "radial-gradient(circle, #a8dadc, #457b9d)" },
+            { id: 6, name: "Pigment 6 (Turquoise)", color: "radial-gradient(circle, #00b4d8, #0077b6)" },
+            { id: 7, name: "Pigment 7 (Vert Émeraude)", color: "radial-gradient(circle, #0b6623, #043912)" },
+            { id: 8, name: "Pigment 8 (Bleu Ciel Nacré)", color: "radial-gradient(circle, #90e0ef, #0096c7)" },
+            { id: 9, name: "Pigment 9 (Bleu Royal)", color: "radial-gradient(circle, #0077b6, #03045e)" },
+            { id: 10, name: "Pigment 10 (Bleu Outremer)", color: "radial-gradient(circle, #1e3a8a, #172554)" },
+            { id: 11, name: "Pigment 11 (Or Antique)", color: "linear-gradient(135deg, #c39b62, #8a6532)" },
+            { id: 12, name: "Pigment 12 (Rouge Métallisé)", color: "radial-gradient(circle, #ef233c, #900c1c)" },
+            { id: 13, name: "Pigment 13 (Cuivre)", color: "linear-gradient(135deg, #d97706, #9a3412)" },
+            { id: 14, name: "Pigment 14 (Orange Sanguine)", color: "radial-gradient(circle, #f97316, #c2410c)" },
+            { id: 15, name: "Pigment 15 (Jaune Citron)", color: "radial-gradient(circle, #facc15, #ca8a04)" },
+            { id: 16, name: "Pigment 16 (Or Pur)", color: "linear-gradient(135deg, #fce181, #d4af37)" },
+            { id: 17, name: "Pigment 17 (Champagne)", color: "linear-gradient(135deg, #f3e9dc, #c0b297)" },
+            { id: 18, name: "Pigment 18 (Blanc Nacré)", color: "radial-gradient(circle, #ffffff, #e5e5e5)" },
+            { id: 19, name: "Pigment 19 (Reflets Diamant)", color: "radial-gradient(circle, #f8fafc, #cbd5e1)" },
+            { id: 20, name: "Pigment 20 (Anthracite)", color: "radial-gradient(circle, #4b5563, #1f2937)" },
+            { id: 21, name: "Pigment 21 (Bronze Sachet)", color: "linear-gradient(135deg, #a16207, #451a03)" },
+            { id: 22, name: "Pigment 22 (Noir Sachet)", color: "radial-gradient(circle, #111827, #030712)" }
+        ];
+
+        let selectionsMaison = {};
+        let cart = JSON.parse(localStorage.getItem('resinebymathy_cart')) || [];
+
+        function renderBoutique() {
+            const grid = document.getElementById('products-grid');
+            
+            // 1. On génère d'abord les articles normaux
+            let htmlContent = items.map(product => {
+                if (!selectionsMaison[product.id]) {
+                    selectionsMaison[product.id] = pigments[0];
+                }
+
+                const pastillesHtml = pigments.map(p => {
+                    const isSelected = selectionsMaison[product.id].id === p.id ? 'selected' : '';
+                    return `
+                        <div class="swatch ${isSelected}" 
+                             style="background: ${p.color};" 
+                             data-name="${p.name}"
+                             onclick="choisirCouleur(${product.id}, ${p.id})">
+                        </div>
+                    `;
+                }).join('');
+                
+                return `
+                    <div class="product-card">
+                        <div class="product-img-wrapper">
+                            <img src="images/${product.image}" alt="${product.name}" class="product-img">
+                        </div>
+                        
+                        <div class="product-info">
+                            <div class="product-tag">Fait main</div>
+                            <h3 class="product-title">${product.name}</h3>
+                            <div class="product-price">${product.price.toFixed(2)} €</div>
+                            
+                            <span class="color-section-label">Couleur :</span>
+                            <div class="color-swatches">
+                                ${pastillesHtml}
+                            </div>
+
+                            <button class="add-to-cart" onclick="ajouterAuPanier(${product.id})">Ajouter</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // 2. On ajoute la 18ème case : Le devis sur-mesure !
+            htmlContent += `
+                <div class="product-card custom-card">
+                    <div class="product-img-wrapper">
+                        <!-- Pas d'image requise pour celle-ci -->
+                    </div>
+                    <div class="product-info">
+                        <div class="product-tag" style="color: #b87355; font-weight: bold;">Sur-mesure</div>
+                        <h3 class="product-title">Une idée ? Un projet spécial ?</h3>
+                        <div class="product-price">Sur devis uniquement</div>
+                        
+                        <p style="font-size: 11px; color: #7a7a7a; margin: 0 0 20px 0; font-style: italic; min-height: 52px;">
+                            Dimensions spécifiques, couleurs hors catalogue ou inclusion d'objets personnels... Discutons-en !
+                        </p>
+
+                        <button class="add-to-cart btn-devis" onclick="envoyerDemandeDevis()">Demander un devis</button>
+                    </div>
+                </div>
+            `;
+
+            grid.innerHTML = htmlContent;
+            updateCartUI();
+        }
+
+        // --- FONCTION DE CONTACT POUR LE DEVIS ---
+        function envoyerDemandeDevis() {
+            const emailArtisane = "ton-adresse-email@exemple.com"; // <-- METS TON EMAIL ICI !
+            const sujet = encodeURIComponent("Demande de création sur-mesure - ResineByMathy");
+            const corpsMessage = encodeURIComponent("Bonjour Mathy,\n\nJe souhaiterais obtenir un devis pour une création personnalisée en résine.\n\nVoici mon projet (description, dimensions souhaitées, couleurs, etc.) :\n-\n-\n\nMerci d'avance !");
+            
+            // Ouvre l'application de messagerie de l'utilisateur avec tout pré-rempli
+            window.location.href = `mailto:${emailArtisane}?subject=${sujet}&body=${corpsMessage}`;
+        }
+
+        function choisirCouleur(produitId, pigmentId) {
+            const pigmentTrouve = pigments.find(p => p.id === pigmentId);
+            selectionsMaison[produitId] = pigmentTrouve;
+            renderBoutique();
+        }
+
+        function ajouterAuPanier(id) {
+            const product = items.find(item => item.id === id);
+            const pigmentSelectionne = selectionsMaison[id];
+            const existing = cart.find(item => item.id === id && item.colorId === pigmentSelectionne.id);
+
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push({ 
+                    ...product, 
+                    quantity: 1, 
+                    colorName: pigmentSelectionne.name, 
+                    colorId: pigmentSelectionne.id,
+                    colorCss: pigmentSelectionne.color 
+                });
+            }
+
+            sauvegarderPanier();
+            updateCartUI();
+            document.getElementById('cart-modal').style.display = 'flex';
+        }
+
+        function changerQuantite(id, colorId, delta) {
+            const item = cart.find(item => item.id === id && item.colorId === colorId);
+            if (!item) return;
+
+            item.quantity += delta;
+            if (item.quantity <= 0) {
+                cart = cart.filter(item => !(item.id === id && item.colorId === colorId));
+            }
+
+            sauvegarderPanier();
+            updateCartUI();
+        }
+
+        function sauvegarderPanier() {
+            localStorage.setItem('resinebymathy_cart', JSON.stringify(cart));
+        }
+
+        function updateCartUI() {
+            const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cart-count').innerText = totalCount;
+
+            const cartItemsContainer = document.getElementById('cart-items');
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<div class="empty-cart-msg">Votre panier attend vos coups de cœur.</div>';
+            } else {
+                cartItemsContainer.innerHTML = cart.map(item => `
+                    <div class="cart-item">
+                        <div class="cart-item-details">
+                            <strong>${item.name}</strong>
+                            <span class="item-color">
+                                <span class="cart-item-color-dot" style="background: ${item.colorCss}"></span>
+                                ${item.colorName}
+                            </span>
+                            <span>${item.price.toFixed(2)} € x ${item.quantity}</span>
+                        </div>
+                        <div class="cart-item-actions">
+                            <button onclick="changerQuantite(${item.id}, ${item.colorId}, -1)">-</button>
+                            <span>${item.quantity}</span>
+                            <button onclick="changerQuantite(${item.id}, ${item.colorId}, 1)">+</button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            const totalAmount = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            document.getElementById('cart-total').innerText = `Total : ${totalAmount.toFixed(2)} €`;
+        }
+
+        function toggleCart() {
+            const modal = document.getElementById('cart-modal');
+            modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        function closeCartOnOutsideClick(event) {
+            if (event.target.id === 'cart-modal') {
+                toggleCart();
+            }
+        }
+
+        function procederPaiement() {
+            if (cart.length === 0) {
+                alert("Votre panier est vide.");
+                return;
+            }
+            alert("Redirection en cours...");
+        }
+
+        renderBoutique();
+    </script>
+</body>
+</html>
