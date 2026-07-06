@@ -3,78 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mathy Beauty - Choix du Créneau</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- Intégration du style Calendly -->
-    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+    <title>Réservation - Mathy Beauty</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fafafa;
+            margin: 0;
+            padding: 10px;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 15px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        h1 {
+            color: #d4a373;
+            font-size: 22px;
+            margin-bottom: 5px;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        
+        /* Ajustement de la zone Calendly pour éviter l'effet "écrasé" */
+        #calendly-inline-widget {
+            min-width: 320px;
+            height: 950px; /* Augmenté à 950px pour laisser respirer l'agenda sur mobile */
+            border: none;
+        }
+
+        /* Zone de paiement cachée au début */
+        #payment-section {
+            display: none;
+            max-width: 450px;
+            margin: 40px auto;
+            padding: 20px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .icon-success {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+        .btn-paiement {
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            text-decoration: none;
+            padding: 16px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+        .paypal {
+            background-color: #0070ba;
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 112, 186, 0.3);
+        }
+        .lydia {
+            background-color: #00aaff;
+            color: white;
+            box-shadow: 0 4px 12px rgba(0, 170, 255, 0.3);
+        }
+        .btn-paiement:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </head>
 <body>
 
-    <header>
-        <h1>Choisis ton créneau</h1>
-        <p>Sélectionne la date et l'heure de ton choix. Tes options sont automatiquement sauvegardées !</p>
-    </header>
-
-    <main class="calendar-page-container">
+<div class="container">
+    
+    <!-- ÉTAPE 1 : L'AGENDA -->
+    <div id="booking-section">
+        <h1>Sélectionnez votre créneau ✨</h1>
+        <p class="subtitle">Trouvez le moment idéal. L'acompte vous sera demandé juste après.</p>
         
-        <!-- RÉCAPITULATIF VISUEL POUR LA CLIENTE -->
-        <div style="max-width: 800px; margin: 0 auto 20px auto; background: #ffffff; padding: 15px; border-radius: 15px; box-shadow: 0 4px 12px rgba(105, 74, 67, 0.05); text-align: left; font-size: 0.9rem;">
-            <h3 style="margin-top: 0; font-size: 0.95rem; color: #8a655d;">📋 Rappel de ta sélection :</h3>
-            <p style="margin-bottom: 5px;"><strong>Prestations :</strong> <span id="txt-services">Aucune</span></p>
-            <p style="margin-bottom: 0;"><strong>Total à régler sur place :</strong> <span id="txt-total" style="font-weight: bold; color: #8a655d; font-size: 1.1rem;">0 €</span></p>
-        </div>
+        <!-- Conteneur Calendly -->
+        <div id="calendly-inline-widget"></div>
+    </div>
 
-        <!-- LE WIDGET CALENDLY EMBARQUÉ -->
-        <div class="calendar-card">
-            <!-- L'encart où Calendly va s'afficher -->
-            <div id="calendly-inline-widget" style="min-width:320px; height:700px;"></div>
-        </div>
+    <!-- ÉTAPE 2 : LE PAIEMENT -->
+    <div id="payment-section">
+        <div class="icon-success">🎉</div>
+        <h1>Créneau réservé !</h1>
+        <p class="subtitle">Pour bloquer définitivement votre rendez-vous, veuillez régler l'acompte de 15€ ci-dessous :</p>
 
-    </main>
+        <!-- Liens de paiement (à personnaliser) -->
+        <a href="https://paypal.me/TON_COMPTE/15" target="_blank" class="btn-paiement paypal">
+            Payer l'acompte avec PayPal (15€)
+        </a>
 
-    <footer>
-        <p>© Mathy Beauty - 2026 - Tous droits réservés</p>
-    </footer>
+        <a href="https://lydia-app.com/collect/TON_LIEN_LYDIA" target="_blank" class="btn-paiement lydia">
+            Payer par Carte Bancaire / Lydia (15€)
+        </a>
+    </div>
 
-    <!-- Script officiel Calendly -->
-    <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+</div>
 
-    <script>
-        window.addEventListener('load', function() {
-            // 1. On récupère les données stockées en mémoire
-            const servicesEnMemoire = JSON.parse(localStorage.getItem('mathy_selected_services')) || [];
-            const totalEnMemoire = localStorage.getItem('mathy_total_price') || '0';
-            const quizEnMemoire = JSON.parse(localStorage.getItem('mathy_quiz_responses')) || {};
+<!-- Script officiel de Calendly -->
+<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
 
-            // 2. Affichage visuel dans le petit encart de rappel
-            if(servicesEnMemoire.length > 0) {
-                document.getElementById('txt-services').textContent = servicesEnMemoire.join(', ');
-            }
-            document.getElementById('txt-total').textContent = `${totalEnMemoire} €`;
-
-            // 3. Construction de la note magique pour l'agenda de ton amie
-            let notePourAgenda = `💰 TOTAL À PAYER : ${totalEnMemoire} €\n\n`;
-            notePourAgenda += `💅 PRESTATIONS CHOISIES :\n${servicesEnMemoire.join('\n')}\n\n`;
-            notePourAgenda += `📋 RÉPONSES AU QUESTIONNAIRE :\n`;
-            notePourAgenda += `- Pose actuelle ? ${quizEnMemoire['pose-actuelle'] || 'Non'}\n`;
-            notePourAgenda += `- Allergies ? ${quizEnMemoire['allergies'] || 'Non'}\n`;
-            notePourAgenda += `- Antécédents ? ${quizEnMemoire['antecedents'] || 'Non'}\n`;
-            if (quizEnMemoire['description_pose']) {
-                notePourAgenda += `- Infos sup : ${quizEnMemoire['description_pose']}\n`;
-            }
-
-            // 4. Initialisation du calendrier Calendly avec injection des données
-            // ⚠️ REMPLACE L'URL CI-DESSOUS PAR LE LIEN CALENDLY DE TON AMIE ⚠️
-            Calendly.initInlineWidget({
-                url: 'https://calendly.com/magrheb-uniited/2hours',
-                parentElement: document.getElementById('calendly-inline-widget'),
-                prefill: {
-                    // Ici, on injecte notre note magique directement dans le champ "Notes" de Calendly
-                    notes: notePourAgenda
-                }
-            });
+<script>
+    // Initialisation
+    window.addEventListener('load', function() {
+        Calendly.initInlineWidget({
+            url: 'https://calendly.com/magrheb-uniited/2hours', // Ton lien de test
+            parentElement: document.getElementById('calendly-inline-widget'),
+            prefill: {},
+            utm: {}
         });
-    </script>
+    });
+
+    // Écoute du signal de validation
+    window.addEventListener('message', function(e) {
+        if (e.data.event && e.data.event === 'calendly.event_scheduled') {
+            // Masquage de l'agenda et affichage des boutons de paiement
+            document.getElementById('booking-section').style.display = 'none';
+            document.getElementById('payment-section').style.display = 'block'; // Correction de la typo ici !
+            
+            // Remonte automatiquement l'écran de l'utilisateur tout en haut pour qu'il voie les boutons
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+    });
+</script>
 
 </body>
 </html>
