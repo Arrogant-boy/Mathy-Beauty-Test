@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mathy Beauty - Choix du Créneau</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Intégration du style Calendly -->
+    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <h1>Choisis ton créneau</h1>
+        <p>Sélectionne la date et l'heure de ton choix. Tes options sont automatiquement sauvegardées !</p>
+    </header>
+
+    <main class="calendar-page-container">
+        
+        <!-- RÉCAPITULATIF VISUEL POUR LA CLIENTE -->
+        <div style="max-width: 800px; margin: 0 auto 20px auto; background: #ffffff; padding: 15px; border-radius: 15px; box-shadow: 0 4px 12px rgba(105, 74, 67, 0.05); text-align: left; font-size: 0.9rem;">
+            <h3 style="margin-top: 0; font-size: 0.95rem; color: #8a655d;">📋 Rappel de ta sélection :</h3>
+            <p style="margin-bottom: 5px;"><strong>Prestations :</strong> <span id="txt-services">Aucune</span></p>
+            <p style="margin-bottom: 0;"><strong>Total à régler sur place :</strong> <span id="txt-total" style="font-weight: bold; color: #8a655d; font-size: 1.1rem;">0 €</span></p>
+        </div>
+
+        <!-- LE WIDGET CALENDLY EMBARQUÉ -->
+        <div class="calendar-card">
+            <!-- L'encart où Calendly va s'afficher -->
+            <div id="calendly-inline-widget" style="min-width:320px; height:700px;"></div>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>© Mathy Beauty - 2026 - Tous droits réservés</p>
+    </footer>
+
+    <!-- Script officiel Calendly -->
+    <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+
+    <script>
+        window.addEventListener('load', function() {
+            // 1. On récupère les données stockées en mémoire
+            const servicesEnMemoire = JSON.parse(localStorage.getItem('mathy_selected_services')) || [];
+            const totalEnMemoire = localStorage.getItem('mathy_total_price') || '0';
+            const quizEnMemoire = JSON.parse(localStorage.getItem('mathy_quiz_responses')) || {};
+
+            // 2. Affichage visuel dans le petit encart de rappel
+            if(servicesEnMemoire.length > 0) {
+                document.getElementById('txt-services').textContent = servicesEnMemoire.join(', ');
+            }
+            document.getElementById('txt-total').textContent = `${totalEnMemoire} €`;
+
+            // 3. Construction de la note magique pour l'agenda de ton amie
+            let notePourAgenda = `💰 TOTAL À PAYER : ${totalEnMemoire} €\n\n`;
+            notePourAgenda += `💅 PRESTATIONS CHOISIES :\n${servicesEnMemoire.join('\n')}\n\n`;
+            notePourAgenda += `📋 RÉPONSES AU QUESTIONNAIRE :\n`;
+            notePourAgenda += `- Pose actuelle ? ${quizEnMemoire['pose-actuelle'] || 'Non'}\n`;
+            notePourAgenda += `- Allergies ? ${quizEnMemoire['allergies'] || 'Non'}\n`;
+            notePourAgenda += `- Antécédents ? ${quizEnMemoire['antecedents'] || 'Non'}\n`;
+            if (quizEnMemoire['description_pose']) {
+                notePourAgenda += `- Infos sup : ${quizEnMemoire['description_pose']}\n`;
+            }
+
+            // 4. Initialisation du calendrier Calendly avec injection des données
+            // ⚠️ REMPLACE L'URL CI-DESSOUS PAR LE LIEN CALENDLY DE TON AMIE ⚠️
+            Calendly.initInlineWidget({
+                url: 'https://calendly.com/magrheb-uniited/2hours',
+                parentElement: document.getElementById('calendly-inline-widget'),
+                prefill: {
+                    // Ici, on injecte notre note magique directement dans le champ "Notes" de Calendly
+                    notes: notePourAgenda
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

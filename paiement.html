@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validation de l'acompte - Mathy Beauty</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background-color: #fafafa; padding: 40px 20px; color: #333; }
+        .container { max-width: 500px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        h1 { color: #d4a373; font-size: 24px; }
+        p { line-height: 1.6; color: #666; }
+        .btn { display: block; width: 100px; margin: 15px auto; padding: 12px 24px; text-decoration: none; color: white; font-weight: bold; border-radius: 8px; transition: transform 0.2s; }
+        .btn:hover { transform: scale(1.05); }
+        .btn-paypal { background-color: #0070ba; }
+        .btn-cb { background-color: #101113; } /* Style type Lydia/Sumeria */
+        .warning { font-size: 0.9em; color: #e63946; font-weight: bold; margin-top: 25px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Une dernière étape ! ✨</h1>
+    <p>Votre créneau est pré-réservé. Pour <strong>éviter les no-shows</strong> et valider définitivement votre rendez-vous, merci de régler l'acompte de 25 € avec le moyen de paiement de votre choix :</p>
+    
+    <!-- BOUTON PAYPAL -->
+    <a href="https://https://www.paypal.me/ProxyMarket/25" class="btn btn-paypal" target="_blank">Payer par PayPal</a>
+    
+    <!-- BOUTON CARTE BANCAIRE -->
+    <a href="https://lydia-app.com/collect/PSEUDO_LYDIA" class="btn btn-cb" target="_blank">Payer par CB</a>
+
+    <p class="warning">⚠️ ATTENTION : Sans réception de l'acompte dans les 30 minutes, le rendez-vous sera automatiquement annulé.</p>
+</div>
+
+</body>
+</html>

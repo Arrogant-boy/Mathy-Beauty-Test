@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mathy Beauty - Questionnaire</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <p>Étape 2 sur 3</p>
+    </header>
+
+    <main class="reservation-list-container">
+
+        <!-- SECTION DU QUESTIONNAIRE -->
+        <section class="menu-category">
+            <h2 class="quiz-main-title">À propos de tes ongles</h2>
+
+            <!-- Question 1 -->
+            <div class="quiz-item">
+                <p class="quiz-question">As-tu déjà une pose actuellement ?</p>
+                <label class="quiz-row">
+                    <span>Oui</span>
+                    <input type="radio" name="pose-actuelle" value="oui">
+                </label>
+                <label class="quiz-row">
+                    <span>Non</span>
+                    <input type="radio" name="pose-actuelle" value="non" checked>
+                </label>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="quiz-item">
+                <p class="quiz-question">As-tu des allergies ?</p>
+                <label class="quiz-row">
+                    <span>Oui</span>
+                    <input type="radio" name="allergies" value="oui">
+                </label>
+                <label class="quiz-row">
+                    <span>Non</span>
+                    <input type="radio" name="allergies" value="non" checked>
+                </label>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="quiz-item">
+                <p class="quiz-question">As-tu des antécédents (infections fongiques, mycoses...) ?</p>
+                <label class="quiz-row">
+                    <span>Oui</span>
+                    <input type="radio" name="antecedents" value="oui">
+                </label>
+                <label class="quiz-row">
+                    <span>Non</span>
+                    <input type="radio" name="antecedents" value="non" checked>
+                </label>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="quiz-item">
+                <p class="quiz-question">Décris-moi la pose que tu souhaites 💅</p>
+                <textarea class="quiz-textarea" placeholder="Dis-moi tout ce qui pourrait m'aider pour le RDV..."></textarea>
+                <div class="quiz-char-count">0/1000</div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Zone de bouton fixe en bas -->
+    <div class="action-zone fixed-bottom">
+        <a href="calendrier.html" class="btn-resa">Choisir ma date & heure</a>
+    </div>
+
+    <footer>
+        <p>© Mathy Beauty - 2026 - Tous droits réservés</p>
+    </footer>
+
+    <script>
+        const radioGroups = ['pose-actuelle', 'allergies', 'antecedents'];
+        const textarea = document.querySelector('.quiz-textarea');
+        const charCount = document.querySelector('.quiz-char-count');
+        const btnNext = document.querySelector('.btn-resa');
+
+        // Gérer le compteur de caractères
+        textarea.addEventListener('input', () => {
+            const count = textarea.value.length;
+            charCount.textContent = `${count}/1000`;
+        });
+
+        // Sauvegarder les données quand on clique sur le bouton suivant
+        btnNext.addEventListener('click', () => {
+            let responses = {};
+            
+            // On récupère les choix Oui/Non
+            radioGroups.forEach(group => {
+                const checkedRadio = document.querySelector(`input[name="${group}"]:checked`);
+                responses[group] = checkedRadio ? checkedRadio.value : 'non';
+            });
+
+            // On récupère la description libre
+            responses['description_pose'] = textarea.value;
+
+            // On enregistre tout en mémoire
+            localStorage.setItem('mathy_quiz_responses', JSON.stringify(responses));
+        });
+    </script>
+
+</body>
+</html>

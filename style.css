@@ -1,0 +1,350 @@
+/* ==========================================================================
+   1. STYLES GENERAUX - AMBIANCE ONGLERIE CHIC (MOBILE-FIRST)
+   ========================================================================== */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+    background-color: #fbf3f0 !important;
+    color: #4a3b37 !important;
+    margin: 0;
+    padding: 0 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+header {
+    text-align: center;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+header h1 {
+    font-size: 2rem;
+    color: #694a43;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+header p {
+    color: #8c736c;
+    font-size: 0.95rem;
+    font-style: italic;
+    margin: 0;
+}
+
+/* ==========================================================================
+   2. ZONE DU CARROUSEL (PAGE INDEX) - RESTAURÉ
+   ========================================================================== */
+.carousel-container {
+    width: 100%;
+    max-width: 400px;
+    height: 320px;
+    overflow: hidden;
+    position: relative;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(105, 74, 67, 0.1);
+    margin-bottom: 25px;
+}
+
+.carousel img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+}
+
+.carousel img.active {
+    opacity: 1;
+}
+
+/* ==========================================================================
+   3. ZONE DE BOUTONS ET ACTIONS
+   ========================================================================== */
+.action-zone {
+    text-align: center;
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+.btn-resa {
+    display: inline-block;
+    background-color: #8a655d;
+    color: #ffffff;
+    padding: 14px 40px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(138, 101, 93, 0.2);
+}
+
+.btn-resa:hover {
+    background-color: #694a43;
+    transform: translateY(-2px);
+}
+
+/* Bouton fixé en bas pour libérer de l'espace sur l'écran */
+.fixed-bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(to top, #fbf3f0 80%, rgba(251, 243, 240, 0));
+    padding: 20px 0;
+    margin-bottom: 0;
+    z-index: 10;
+}
+
+/* ==========================================================================
+   4. NOUVELLE VUE LISTE APPLICATIVE (PAGE RESERVATION - MULTI-SÉLECTION)
+   ========================================================================== */
+.reservation-list-container {
+    width: 100%;
+    max-width: 600px; /* Format compact idéal pour mobile */
+    margin: 0 auto 130px auto;
+    box-sizing: border-box;
+}
+
+.menu-category {
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.category-title {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #8a655d;
+    margin-bottom: 10px;
+    font-weight: 700;
+    padding-left: 5px;
+}
+
+/* Encart complet d'une prestation, cliquable */
+.service-row {
+    background-color: #ffffff;
+    border-radius: 14px;
+    padding: 12px 16px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(105, 74, 67, 0.04);
+    transition: all 0.2s ease-in-out;
+    box-sizing: border-box;
+}
+
+.service-row:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(105, 74, 67, 0.08);
+}
+
+/* Style de la case à cocher */
+.service-row input[type="checkbox"] {
+    accent-color: #8a655d;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    flex-shrink: 0;
+    margin: 0;
+}
+
+/* Petites miniatures photos ajustées */
+.service-thumb {
+    width: 46px;
+    height: 46px;
+    object-fit: cover;
+    border-radius: 10px;
+    flex-shrink: 0;
+}
+
+/* Carré de secours sans photo (ex: réparation) */
+.service-thumb-empty {
+    width: 46px;
+    height: 46px;
+    background-color: #f5ede9;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+/* Contenu textuel au centre */
+.service-details {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.service-details h3 {
+    font-size: 0.9rem;
+    margin: 0;
+    color: #4a3b37;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.service-duration {
+    font-size: 0.75rem;
+    color: #8c736c;
+}
+
+/* Prix calé sur la droite */
+.service-price {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #4a3b37;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+/* ==========================================================================
+   5. INTEGRATION GOOGLE AGENDA RESPONSIVE
+   ========================================================================== */
+.calendar-page-container {
+    width: 100%;
+    max-width: 1100px;
+    margin-bottom: 120px;
+}
+
+.calendar-card {
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(105, 74, 67, 0.05);
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.calendar-wrapper {
+    position: relative;
+    padding-bottom: 65%;
+    height: 0;
+    overflow: hidden;
+}
+
+.calendar-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+    border: 0 !important;
+}
+
+@media (max-width: 600px) {
+    .calendar-wrapper {
+        padding-bottom: 100%; 
+    }
+}
+
+/* ==========================================================================
+   6. NOUVEAU : ENCART QUESTIONNAIRE DÉDIÉ (PAGE QUESTIONNAIRE - SCREENSHOT)
+   ========================================================================== */
+.quiz-main-title {
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 1.4rem;
+    color: #4a3b37;
+    margin-bottom: 25px;
+    font-weight: 700;
+    text-align: left;
+}
+
+.quiz-item {
+    margin-bottom: 24px;
+}
+
+.quiz-question {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #4a3b37;
+    margin: 0 0 12px 0;
+    text-align: left;
+}
+
+/* Blocs Oui / Non reprenant l'esprit épuré de ton modèle */
+.quiz-row {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(105, 74, 67, 0.04);
+    font-size: 0.9rem;
+    color: #5c4a46;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.quiz-row:hover {
+    box-shadow: 0 4px 10px rgba(105, 74, 67, 0.08);
+}
+
+/* Cercles radio sombres comme sur l'image */
+.quiz-row input[type="radio"] {
+    accent-color: #4a3b37; 
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    cursor: pointer;
+}
+
+/* Bloc d'expression libre */
+.quiz-textarea {
+    width: 100%;
+    height: 120px;
+    background-color: #ffffff;
+    border: none;
+    border-radius: 14px;
+    padding: 14px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    color: #4a3b37;
+    box-shadow: 0 2px 8px rgba(105, 74, 67, 0.04);
+    resize: none;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.quiz-textarea::placeholder {
+    color: #bfaea9;
+}
+
+.quiz-textarea:focus {
+    box-shadow: 0 2px 10px rgba(138, 101, 93, 0.15);
+}
+
+.quiz-char-count {
+    font-size: 0.75rem;
+    color: #8c736c;
+    text-align: right;
+    margin-top: 4px;
+    padding-right: 5px;
+}
+
+/* ==========================================================================
+   7. PIED DE PAGE
+   ========================================================================== */
+footer {
+    margin-top: auto;
+    padding: 15px;
+    font-size: 0.8rem;
+    color: #8c736c;
+    opacity: 0.7;
+    text-align: center;
+}
